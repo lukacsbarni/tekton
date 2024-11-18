@@ -3,6 +3,16 @@ entries:
   tekton-dashboard:
   - apiVersion: v2
     appVersion: 0.1.0
+    created: "2024-11-18T13:28:52.932074215Z"
+    description: A Helm chart for Tekton Dashboard
+    digest: 618c6324336c36c871f9eaf2f84063bed13d9929d5836761886706e15ba3ab32
+    name: tekton-dashboard
+    type: application
+    urls:
+    - https://github.com/lukacsbarni/tekton/releases/download/tekton-dashboard-0.1.2/tekton-dashboard-0.1.2.tgz
+    version: 0.1.2
+  - apiVersion: v2
+    appVersion: 0.1.0
     created: "2024-11-18T11:30:59.297181197Z"
     description: A Helm chart for Tekton Dashboard
     digest: 67eacbbd27692e5bf94a7b3165b09c03b18be23af4830802ac1330104fa8dc63
@@ -14,6 +24,16 @@ entries:
   tekton-pipelines:
   - apiVersion: v2
     appVersion: 0.1.0
+    created: "2024-11-18T13:28:53.062676708Z"
+    description: A Helm chart for Tekton Pipelines
+    digest: e12b5b9d2dba15af9a28e073b0266df983e7a1e1863b19700f2062affd56de76
+    name: tekton-pipelines
+    type: application
+    urls:
+    - https://github.com/lukacsbarni/tekton/releases/download/tekton-pipelines-0.1.2/tekton-pipelines-0.1.2.tgz
+    version: 0.1.2
+  - apiVersion: v2
+    appVersion: 0.1.0
     created: "2024-11-18T11:30:59.390098691Z"
     description: A Helm chart for Tekton Pipelines
     digest: 0d94800ce5de82346e8f4fb18d9c9e202b9c6dc84e82acf594ba202dfd6b6ce2
@@ -22,4 +42,4 @@ entries:
     urls:
     - https://github.com/lukacsbarni/tekton/releases/download/tekton-pipelines-0.1.1/tekton-pipelines-0.1.1.tgz
     version: 0.1.1
-generated: "2024-11-18T11:30:59.390108099Z"
+generated: "2024-11-18T13:28:53.062692488Z"
