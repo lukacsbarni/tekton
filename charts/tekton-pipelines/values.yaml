@@ -615,3 +615,8 @@ webhook:
         memory: 100Mi
 networkPolicy:
   enabled: true
+tolerations:
+  - key: "vendor"
+    operator: "Equal"
+    value: "cosmotech"
+    effect: "NoSchedule"

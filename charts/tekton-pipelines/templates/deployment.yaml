@@ -44,6 +44,10 @@ spec:
       tolerations:
         {{- toYaml . | nindent 8 }}
       {{- end }}
+      {{- with .Values.nodeSelector }}
+      nodeselector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
       containers:
       - args: {{- toYaml .Values.controller.tektonPipelinesController.args | nindent 8
           }}
@@ -169,6 +173,10 @@ spec:
       tolerations:
         {{- toYaml . | nindent 8 }}
       {{- end }}
+      {{- with .Values.nodeSelector }}
+      nodeselector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
       containers:
       - env:
         - name: SYSTEM_NAMESPACE
@@ -288,6 +296,10 @@ spec:
       tolerations:
         {{- toYaml . | nindent 8 }}
       {{- end }}
+      {{- with .Values.nodeSelector }}
+      nodeselector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
       containers:
       - env:
         - name: SYSTEM_NAMESPACE
@@ -385,6 +397,10 @@ spec:
             weight: 100
       {{- with .Values.tolerations }}
       tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.nodeSelector }}
+      nodeselector:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       containers:
