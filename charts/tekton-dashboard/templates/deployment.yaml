@@ -17,7 +17,7 @@ spec:
       app.kubernetes.io/instance: default
       app.kubernetes.io/name: dashboard
       app.kubernetes.io/part-of: tekton-dashboard
-    {{- include "tekton-dashboard.selectorLabels" . | nindent 6 }}
+    {{- include "tekton-dashboard.selectorLabels" . | nindent 6 }}    
   template:
     metadata:
       labels:
@@ -28,7 +28,16 @@ spec:
         app.kubernetes.io/part-of: tekton-dashboard
         app.kubernetes.io/version: v0.52.0
       {{- include "tekton-dashboard.selectorLabels" . | nindent 8 }}
+      {{- include "tekton-pipelines.defaultNetworkPolicy" . | nindent 8 }}
     spec:
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.nodeSelector }}
+      nodeselector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
       containers:
       - args: {{- toYaml .Values.tektonDashboard.tektonDashboard.args | nindent 8 }}
         env:
@@ -54,5 +63,4 @@ spec:
         resources: {}
         securityContext: {{- toYaml .Values.tektonDashboard.tektonDashboard.containerSecurityContext
           | nindent 10 }}
-      nodeSelector: {{- toYaml .Values.tektonDashboard.nodeSelector | nindent 8 }}
       serviceAccountName: {{ include "tekton-dashboard.fullname" . }}-tekton-dashboard
