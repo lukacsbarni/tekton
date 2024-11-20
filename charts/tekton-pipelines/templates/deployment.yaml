@@ -45,7 +45,7 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       {{- with .Values.nodeSelector }}
-      nodeselector:
+      nodeSelector:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       containers:
@@ -174,7 +174,7 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       {{- with .Values.nodeSelector }}
-      nodeselector:
+      nodeSelector:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       containers:
@@ -297,7 +297,7 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       {{- with .Values.nodeSelector }}
-      nodeselector:
+      nodeSelector:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       containers:
@@ -400,7 +400,7 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       {{- with .Values.nodeSelector }}
-      nodeselector:
+      nodeSelector:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       containers:
