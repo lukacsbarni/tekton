@@ -81,5 +81,5 @@ spec:
         securityContext: {{- toYaml .Values.tektonTriggersCoreInterceptors.tektonTriggersCoreInterceptors.containerSecurityContext
           | nindent 10 }}
       {{- with .Values.serviceAccountName }}
-      serviceAccountName: {{ .Values.serviceAccountName }}
+      serviceAccountName: {{ . }}
       {{- end }}
