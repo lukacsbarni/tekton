@@ -44,6 +44,16 @@ entries:
   tekton-interceptors:
   - apiVersion: v2
     appVersion: 0.1.0
+    created: "2024-11-21T14:17:37.831906618Z"
+    description: A Helm chart for Tekton interceptors
+    digest: 241adacf992da96f284d99d63066f7ee2feefa4b3981c0581cdd7b7d25c48b81
+    name: tekton-interceptors
+    type: application
+    urls:
+    - https://github.com/lukacsbarni/tekton/releases/download/tekton-interceptors-0.1.7/tekton-interceptors-0.1.7.tgz
+    version: 0.1.7
+  - apiVersion: v2
+    appVersion: 0.1.0
     created: "2024-11-21T13:35:00.223529038Z"
     description: A Helm chart for Tekton interceptors
     digest: 55f92f464952eb3ebdc8c01cc3807452b514c7077408ba89dae2001e8b140e38
@@ -114,4 +124,4 @@ entries:
     urls:
     - https://github.com/lukacsbarni/tekton/releases/download/tekton-triggers-0.1.5/tekton-triggers-0.1.5.tgz
     version: 0.1.5
-generated: "2024-11-21T13:35:00.223567177Z"
+generated: "2024-11-21T14:17:37.831933097Z"
