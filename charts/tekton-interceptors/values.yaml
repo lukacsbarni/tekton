@@ -33,3 +33,4 @@ tektonTriggersCoreInterceptors:
   type: ClusterIP
 networkPolicy:
   enabled: true
+serviceAccountName: tekton-triggers-core-interceptors

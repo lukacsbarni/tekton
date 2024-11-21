@@ -80,4 +80,6 @@ spec:
         resources: {}
         securityContext: {{- toYaml .Values.tektonTriggersCoreInterceptors.tektonTriggersCoreInterceptors.containerSecurityContext
           | nindent 10 }}
-      serviceAccountName: {{ include "tekton-interceptors.fullname" . }}-tekton-triggers-core-interceptors
+      {{- with .Values.serviceAccountName }}
+      serviceAccountName: {{ .Values.serviceAccountName }}
+      {{- end }}
