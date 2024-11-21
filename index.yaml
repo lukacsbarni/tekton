@@ -3,6 +3,16 @@ entries:
   tekton-dashboard:
   - apiVersion: v2
     appVersion: 0.1.0
+    created: "2024-11-21T07:11:17.472320188Z"
+    description: A Helm chart for Tekton Dashboard
+    digest: 4c22451264edc7a5373c5b83ba8ac991a81a1557c0faeda5de06bbfca1803a84
+    name: tekton-dashboard
+    type: application
+    urls:
+    - https://github.com/lukacsbarni/tekton/releases/download/tekton-dashboard-0.1.5/tekton-dashboard-0.1.5.tgz
+    version: 0.1.5
+  - apiVersion: v2
+    appVersion: 0.1.0
     created: "2024-11-20T06:04:14.599980157Z"
     description: A Helm chart for Tekton Dashboard
     digest: 213c8fd1c05f65b6f9b96badd1813d9250989fac763acca3d62593de64b24e4f
@@ -31,7 +41,28 @@ entries:
     urls:
     - https://github.com/lukacsbarni/tekton/releases/download/tekton-dashboard-0.1.1/tekton-dashboard-0.1.1.tgz
     version: 0.1.1
+  tekton-interceptors:
+  - apiVersion: v2
+    appVersion: 0.1.0
+    created: "2024-11-21T07:11:17.560554343Z"
+    description: A Helm chart for Tekton interceptors
+    digest: c91ed17c458c6029b23baac83496864cb1ab9f6545e4e21486419075bcb2ec21
+    name: tekton-interceptors
+    type: application
+    urls:
+    - https://github.com/lukacsbarni/tekton/releases/download/tekton-interceptors-0.1.5/tekton-interceptors-0.1.5.tgz
+    version: 0.1.5
   tekton-pipelines:
+  - apiVersion: v2
+    appVersion: 0.1.0
+    created: "2024-11-21T07:11:17.674788408Z"
+    description: A Helm chart for Tekton Pipelines
+    digest: 6c225ebc0af64076f59e6023f95147f96d434770491c96d0be0d9e3fa7df6108
+    name: tekton-pipelines
+    type: application
+    urls:
+    - https://github.com/lukacsbarni/tekton/releases/download/tekton-pipelines-0.1.5/tekton-pipelines-0.1.5.tgz
+    version: 0.1.5
   - apiVersion: v2
     appVersion: 0.1.0
     created: "2024-11-20T06:04:14.713177047Z"
@@ -62,4 +93,15 @@ entries:
     urls:
     - https://github.com/lukacsbarni/tekton/releases/download/tekton-pipelines-0.1.1/tekton-pipelines-0.1.1.tgz
     version: 0.1.1
-generated: "2024-11-20T06:04:14.713212122Z"
+  tekton-triggers:
+  - apiVersion: v2
+    appVersion: 0.1.0
+    created: "2024-11-21T07:11:17.836473242Z"
+    description: A Helm chart for Tekton triggers
+    digest: e6e61850009a8206316cfb1ccec94417c82fefe45b5dbfe30d8510f30daff560
+    name: tekton-triggers
+    type: application
+    urls:
+    - https://github.com/lukacsbarni/tekton/releases/download/tekton-triggers-0.1.5/tekton-triggers-0.1.5.tgz
+    version: 0.1.5
+generated: "2024-11-21T07:11:17.836504671Z"
