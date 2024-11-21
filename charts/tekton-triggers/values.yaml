@@ -1,0 +1,248 @@
+configDefaultsTriggers:
+  Example: |-
+    ################################
+    #                              #
+    #    EXAMPLE CONFIGURATION     #
+    #                              #
+    ################################
+    # This block is not actually functional configuration,
+    # but serves to illustrate the available configuration
+    # options and document them in a way that is accessible
+    # to users that `kubectl edit` this config map.
+    #
+    # These sample configuration options may be copied out of
+    # this example block and unindented to be in the data block
+    # to actually change the configuration.
+    # default-service-account contains the default service account name
+    # to use for TaskRun and PipelineRun, if none is specified.
+    default-service-account: "default"
+    default-run-as-user: "65532"
+    default-run-as-group: "65532"
+    default-fs-group: "65532"
+    default-run-as-non-root: "true" # allowed values are true and false
+configLeaderElectionTriggersController:
+  Example: |-
+    ################################
+    #                              #
+    #    EXAMPLE CONFIGURATION     #
+    #                              #
+    ################################
+    # This block is not actually functional configuration,
+    # but serves to illustrate the available configuration
+    # options and document them in a way that is accessible
+    # to users that `kubectl edit` this config map.
+    #
+    # These sample configuration options may be copied out of
+    # this example block and unindented to be in the data block
+    # to actually change the configuration.
+    # lease-duration is how long non-leaders will wait to try to acquire the
+    # lock; 15 seconds is the value used by core kubernetes controllers.
+    lease-duration: "60s"
+    # renew-deadline is how long a leader will try to renew the lease before
+    # giving up; 10 seconds is the value used by core kubernetes controllers.
+    renew-deadline: "40s"
+    # retry-period is how long the leader election client waits between tries of
+    # actions; 2 seconds is the value used by core kubernetes controllers.
+    retry-period: "10s"
+    # buckets is the number of buckets used to partition key space of each
+    # Reconciler. If this number is M and the replica number of the controller
+    # is N, the N replicas will compete for the M buckets. The owner of a
+    # bucket will take care of the reconciling for the keys partitioned into
+    # that bucket.
+    buckets: "1"
+configLeaderElectionTriggersWebhook:
+  Example: |-
+    ################################
+    #                              #
+    #    EXAMPLE CONFIGURATION     #
+    #                              #
+    ################################
+    # This block is not actually functional configuration,
+    # but serves to illustrate the available configuration
+    # options and document them in a way that is accessible
+    # to users that `kubectl edit` this config map.
+    #
+    # These sample configuration options may be copied out of
+    # this example block and unindented to be in the data block
+    # to actually change the configuration.
+    # lease-duration is how long non-leaders will wait to try to acquire the
+    # lock; 15 seconds is the value used by core kubernetes controllers.
+    lease-duration: "60s"
+    # renew-deadline is how long a leader will try to renew the lease before
+    # giving up; 10 seconds is the value used by core kubernetes controllers.
+    renew-deadline: "40s"
+    # retry-period is how long the leader election client waits between tries of
+    # actions; 2 seconds is the value used by core kubernetes controllers.
+    retry-period: "10s"
+    # buckets is the number of buckets used to partition key space of each
+    # Reconciler. If this number is M and the replica number of the controller
+    # is N, the N replicas will compete for the M buckets. The owner of a
+    # bucket will take care of the reconciling for the keys partitioned into
+    # that bucket.
+    buckets: "1"
+configLoggingTriggers:
+  loglevelController: info
+  loglevelEventlistener: info
+  loglevelWebhook: info
+  zapLoggerConfig: |-
+    {
+      "level": "info",
+      "development": false,
+      "disableStacktrace": true,
+      "sampling": {
+        "initial": 100,
+        "thereafter": 100
+      },
+      "outputPaths": ["stdout"],
+      "errorOutputPaths": ["stderr"],
+      "encoding": "json",
+      "encoderConfig": {
+        "timeKey": "timestamp",
+        "levelKey": "severity",
+        "nameKey": "logger",
+        "callerKey": "caller",
+        "messageKey": "message",
+        "stacktraceKey": "stacktrace",
+        "lineEnding": "",
+        "levelEncoder": "",
+        "timeEncoder": "iso8601",
+        "durationEncoder": "",
+        "callerEncoder": ""
+      }
+    }
+configObservabilityTriggers:
+  Example: |-
+    ################################
+    #                              #
+    #    EXAMPLE CONFIGURATION     #
+    #                              #
+    ################################
+    # This block is not actually functional configuration,
+    # but serves to illustrate the available configuration
+    # options and document them in a way that is accessible
+    # to users that `kubectl edit` this config map.
+    #
+    # These sample configuration options may be copied out of
+    # this example block and unindented to be in the data block
+    # to actually change the configuration.
+    # metrics.backend-destination field specifies the system metrics destination.
+    # It supports either prometheus (the default) or stackdriver.
+    # Note: Using stackdriver will incur additional charges
+    metrics.backend-destination: prometheus
+    # metrics.stackdriver-project-id field specifies the stackdriver project ID. This
+    # field is optional. When running on GCE, application default credentials will be
+    # used if this field is not provided.
+    metrics.stackdriver-project-id: "<your stackdriver project id>"
+    # metrics.allow-stackdriver-custom-metrics indicates whether it is allowed to send metrics to
+    # Stackdriver using "global" resource type and custom metric type if the
+    # metrics are not supported by "knative_revision" resource type. Setting this
+    # flag to "true" could cause extra Stackdriver charge.
+    # If metrics.backend-destination is not Stackdriver, this is ignored.
+    metrics.allow-stackdriver-custom-metrics: "false"
+controller:
+  ports:
+  - name: http-metrics
+    port: 9000
+    protocol: TCP
+    targetPort: 9000
+  replicas: 1
+  serviceAccount:
+    annotations: {}
+  tektonTriggersController:
+    args:
+    - -logtostderr
+    - -stderrthreshold
+    - INFO
+    - -el-image
+    - ghcr.io/tektoncd/triggers/eventlistenersink-7ad1faa98cddbcb0c24990303b220bb8:v0.30.0@sha256:ba22b87166bcc29e20f4a7dc11be3ff063d6e1276e7e0db7819b381f4e13d7a3
+    - -el-port
+    - "8080"
+    - -el-security-context=true
+    - -el-read-only-root-filesystem=true
+    - -el-events
+    - disable
+    - -el-readtimeout
+    - "5"
+    - -el-writetimeout
+    - "40"
+    - -el-idletimeout
+    - "120"
+    - -el-timeouthandler
+    - "30"
+    - -el-httpclient-readtimeout
+    - "30"
+    - -el-httpclient-keep-alive
+    - "30"
+    - -el-httpclient-tlshandshaketimeout
+    - "10"
+    - -el-httpclient-responseheadertimeout
+    - "10"
+    - -el-httpclient-expectcontinuetimeout
+    - "1"
+    - -period-seconds
+    - "10"
+    - -failure-threshold
+    - "3"
+    containerSecurityContext:
+      allowPrivilegeEscalation: false
+      capabilities:
+        drop:
+        - ALL
+      readOnlyRootFilesystem: true
+      runAsGroup: 65532
+      runAsNonRoot: true
+      runAsUser: 65532
+      seccompProfile:
+        type: RuntimeDefault
+    env:
+      configDefaultsName: config-defaults-triggers
+      configLeaderelectionName: config-leader-election-triggers-controllers
+      configLoggingName: config-logging-triggers
+      configObservabilityName: config-observability-triggers
+      metricsDomain: tekton.dev/triggers
+      metricsPrometheusPort: "9000"
+    image:
+      repository: ghcr.io/tektoncd/triggers/controller-f656ca31de179ab913fa76abc255c315
+      tag: v0.30.0@sha256:522304c51a07c8d27a2d9df746fa88400a87e2269fbeec6ea8abdeb6f957c93f
+  type: ClusterIP
+coreInterceptors:
+  serviceAccount:
+    annotations: {}
+featureFlagsTriggers:
+  enableApiFields: stable
+  labelsExclusionPattern: ""
+kubernetesClusterDomain: cluster.local
+triggersInfo:
+  version: v0.30.0
+webhook:
+  ports:
+  - name: https-webhook
+    port: 443
+    targetPort: 8443
+  replicas: 1
+  serviceAccount:
+    annotations: {}
+  type: ClusterIP
+  webhook:
+    containerSecurityContext:
+      allowPrivilegeEscalation: false
+      capabilities:
+        drop:
+        - ALL
+      readOnlyRootFilesystem: true
+      runAsGroup: 65532
+      runAsNonRoot: true
+      runAsUser: 65532
+      seccompProfile:
+        type: RuntimeDefault
+    env:
+      configLeaderelectionName: config-leader-election-triggers-webhook
+      configLoggingName: config-logging-triggers
+      metricsDomain: tekton.dev/triggers
+      webhookSecretName: triggers-webhook-certs
+      webhookServiceName: tekton-triggers-webhook
+    image:
+      repository: ghcr.io/tektoncd/triggers/webhook-dd1edc925ee1772a9f76e2c1bc291ef6
+      tag: v0.30.0@sha256:fc72ca984313ce59f19537afb1ca4b1b3b0a593c7ec111386f96fed415550293
+networkPolicy:
+  enabled: true

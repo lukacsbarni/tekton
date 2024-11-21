@@ -1,6 +1,6 @@
 apiVersion: v2
-name: tekton-dashboard
-description: A Helm chart for Tekton Dashboard
+name: tekton-triggers
+description: A Helm chart for Tekton triggers
 # A chart can be either an 'application' or a 'library' chart.
 #
 # Application charts are a collection of templates that can be packaged into versioned archives

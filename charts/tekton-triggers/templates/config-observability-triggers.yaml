@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: config-observability-triggers
+  labels:
+    app.kubernetes.io/part-of: tekton-triggers
+  {{- include "tekton-triggers.labels" . | nindent 4 }}
+data:
+  _example: {{ .Values.configObservabilityTriggers.Example | toYaml | indent 1 }}
