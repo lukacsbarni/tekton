@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "tekton-pipelines.fullname" . }}-controller
+  name: tekton-pipelines-controller
   labels:
     app.kubernetes.io/component: controller
     app.kubernetes.io/part-of: tekton-pipelines
@@ -118,19 +118,19 @@ spec:
           name: config-logging
         - mountPath: /etc/config-registry-cert
           name: config-registry-cert
-      serviceAccountName: {{ include "tekton-pipelines.fullname" . }}-controller
+      serviceAccountName: tekton-pipelines-controller
       volumes:
       - configMap:
-          name: {{ include "tekton-pipelines.fullname" . }}-config-logging
+          name: config-logging
         name: config-logging
       - configMap:
-          name: {{ include "tekton-pipelines.fullname" . }}-config-registry-cert
+          name: config-registry-cert
         name: config-registry-cert
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "tekton-pipelines.fullname" . }}-tekton-events-controller
+  name: tekton-events-controller
   labels:
     app.kubernetes.io/component: events
     app.kubernetes.io/part-of: tekton-pipelines
@@ -238,19 +238,19 @@ spec:
           name: config-logging
         - mountPath: /etc/config-registry-cert
           name: config-registry-cert
-      serviceAccountName: {{ include "tekton-pipelines.fullname" . }}-tekton-events-controller
+      serviceAccountName: tekton-events-controller
       volumes:
       - configMap:
-          name: {{ include "tekton-pipelines.fullname" . }}-config-logging
+          name: config-logging
         name: config-logging
       - configMap:
-          name: {{ include "tekton-pipelines.fullname" . }}-config-registry-cert
+          name: config-registry-cert
         name: config-registry-cert
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "tekton-pipelines.fullname" . }}-remote-resolvers
+  name: tekton-pipelines-remote-resolvers
   labels:
     app.kubernetes.io/component: resolvers
     app.kubernetes.io/part-of: tekton-pipelines
@@ -341,12 +341,12 @@ spec:
           }}
         securityContext: {{- toYaml .Values.remoteResolvers.controller.containerSecurityContext
           | nindent 10 }}
-      serviceAccountName: {{ include "tekton-pipelines.fullname" . }}-resolvers
+      serviceAccountName: tekton-pipelines-resolvers
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "tekton-pipelines.fullname" . }}-webhook
+  name: tekton-pipelines-webhook
   labels:
     app.kubernetes.io/component: webhook
     app.kubernetes.io/part-of: tekton-pipelines
@@ -462,4 +462,4 @@ spec:
         resources: {{- toYaml .Values.webhook.webhook.resources | nindent 10 }}
         securityContext: {{- toYaml .Values.webhook.webhook.containerSecurityContext |
           nindent 10 }}
-      serviceAccountName: {{ include "tekton-pipelines.fullname" . }}-webhook
+      serviceAccountName: tekton-pipelines-webhook

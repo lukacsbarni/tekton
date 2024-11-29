@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "tekton-triggers.fullname" . }}-controller
+  name: tekton-triggers-controller
   labels:
     app.kubernetes.io/component: controller
     app.kubernetes.io/part-of: tekton-triggers
@@ -71,12 +71,12 @@ spec:
         resources: {}
         securityContext: {{- toYaml .Values.controller.tektonTriggersController.containerSecurityContext
           | nindent 10 }}
-      serviceAccountName: {{ include "tekton-triggers.fullname" . }}-controller
+      serviceAccountName: tekton-triggers-controller
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "tekton-triggers.fullname" . }}-webhook
+  name: tekton-triggers-webhook
   labels:
     app.kubernetes.io/component: webhook
     app.kubernetes.io/part-of: tekton-triggers
@@ -144,4 +144,4 @@ spec:
         resources: {}
         securityContext: {{- toYaml .Values.webhook.webhook.containerSecurityContext |
           nindent 10 }}
-      serviceAccountName: {{ include "tekton-triggers.fullname" . }}-webhook
+      serviceAccountName: tekton-triggers-webhook

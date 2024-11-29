@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "tekton-dashboard.fullname" . }}-tekton-dashboard
+  name: tekton-dashboard
   labels:
     app: tekton-dashboard
     app.kubernetes.io/component: dashboard
@@ -17,7 +17,7 @@ spec:
       app.kubernetes.io/instance: default
       app.kubernetes.io/name: dashboard
       app.kubernetes.io/part-of: tekton-dashboard
-    {{- include "tekton-dashboard.selectorLabels" . | nindent 6 }}    
+    {{- include "tekton-dashboard.selectorLabels" . | nindent 6 }}
   template:
     metadata:
       labels:
@@ -63,4 +63,4 @@ spec:
         resources: {}
         securityContext: {{- toYaml .Values.tektonDashboard.tektonDashboard.containerSecurityContext
           | nindent 10 }}
-      serviceAccountName: {{ include "tekton-dashboard.fullname" . }}-tekton-dashboard
+      serviceAccountName: tekton-dashboard

@@ -11,7 +11,7 @@ data:
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: {{ include "tekton-pipelines.fullname" . }}-config-observability
+  name: config-observability
   labels:
     app.kubernetes.io/component: resolvers
     app.kubernetes.io/part-of: tekton-pipelines

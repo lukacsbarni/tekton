@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "tekton-interceptors.fullname" . }}-tekton-triggers-core-interceptors
+  name: tekton-triggers-core-interceptors
   labels:
     app.kubernetes.io/component: interceptors
     app.kubernetes.io/part-of: tekton-triggers

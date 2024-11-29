@@ -13,7 +13,7 @@ spec:
     webhook:
       clientConfig:
         service:
-          name: '{{ include "tekton-pipelines.fullname" . }}-webhook'
+          name: tekton-pipelines-webhook
           namespace: '{{ .Release.Namespace }}'
       conversionReviewVersions:
       - v1beta1

@@ -11,7 +11,7 @@ webhooks:
   - v1
   clientConfig:
     service:
-      name: '{{ include "tekton-triggers.fullname" . }}-webhook'
+      name: tekton-triggers-webhook
       namespace: '{{ .Release.Namespace }}'
   failurePolicy: Fail
   name: webhook.triggers.tekton.dev

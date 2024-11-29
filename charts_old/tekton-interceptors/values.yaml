@@ -1,0 +1,36 @@
+kubernetesClusterDomain: cluster.local
+tektonTriggersCoreInterceptors:
+  ports:
+  - name: https
+    port: 8443
+    targetPort: 0
+  replicas: 1
+  tektonTriggersCoreInterceptors:
+    args:
+    - -logtostderr
+    - -stderrthreshold
+    - INFO
+    containerSecurityContext:
+      allowPrivilegeEscalation: false
+      capabilities:
+        drop:
+        - ALL
+      readOnlyRootFilesystem: true
+      runAsGroup: 65532
+      runAsNonRoot: true
+      runAsUser: 65532
+      seccompProfile:
+        type: RuntimeDefault
+    env:
+      configLoggingName: config-logging-triggers
+      configObservabilityName: config-observability-triggers
+      interceptorTlsSecretName: tekton-triggers-core-interceptors-certs
+      interceptorTlsSvcName: tekton-triggers-core-interceptors
+      metricsDomain: tekton.dev/triggers
+    image:
+      repository: ghcr.io/tektoncd/triggers/interceptors-3176d6a3f314c3655b30bfd36e421dd5
+      tag: v0.30.0@sha256:d2898b90afce06e10773af96e150f49c4d63db0ccb6ca93a466c38fa5c1ebb01
+  type: ClusterIP
+networkPolicy:
+  enabled: true
+serviceAccountName: tekton-triggers-core-interceptors

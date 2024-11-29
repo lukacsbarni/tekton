@@ -1,7 +1,7 @@
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
-  name: {{ include "tekton-dashboard.fullname" . }}-backend
+  name: tekton-dashboard-backend
   labels:
     app.kubernetes.io/component: dashboard
     app.kubernetes.io/part-of: tekton-dashboard
@@ -77,7 +77,7 @@ rules:
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
-  name: {{ include "tekton-dashboard.fullname" . }}-backend
+  name: tekton-dashboard-backend
   labels:
     app.kubernetes.io/component: dashboard
     app.kubernetes.io/part-of: tekton-dashboard
@@ -86,8 +86,8 @@ metadata:
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
-  name: '{{ include "tekton-dashboard.fullname" . }}-backend'
+  name: tekton-dashboard-backend
 subjects:
 - kind: ServiceAccount
-  name: '{{ include "tekton-dashboard.fullname" . }}-tekton-dashboard'
+  name: tekton-dashboard
   namespace: '{{ .Release.Namespace }}'

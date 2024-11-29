@@ -1,0 +1,85 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "tekton-interceptors.fullname" . }}-tekton-triggers-core-interceptors
+  labels:
+    app.kubernetes.io/component: interceptors
+    app.kubernetes.io/part-of: tekton-triggers
+    triggers.tekton.dev/release: v0.30.0
+  {{- include "tekton-interceptors.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.tektonTriggersCoreInterceptors.replicas }}
+  selector:
+    matchLabels:
+      app.kubernetes.io/component: interceptors
+      app.kubernetes.io/instance: default
+      app.kubernetes.io/name: core-interceptors
+      app.kubernetes.io/part-of: tekton-triggers
+    {{- include "tekton-interceptors.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        app: tekton-triggers-core-interceptors
+        app.kubernetes.io/component: interceptors
+        app.kubernetes.io/instance: default
+        app.kubernetes.io/name: core-interceptors
+        app.kubernetes.io/part-of: tekton-triggers
+        app.kubernetes.io/version: v0.30.0
+        triggers.tekton.dev/release: v0.30.0
+        version: v0.30.0
+      {{- include "tekton-interceptors.selectorLabels" . | nindent 8 }}
+      {{- include "tekton-interceptors.defaultNetworkPolicy" . | nindent 8 }}
+    spec:
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      containers:
+      - args: {{- toYaml .Values.tektonTriggersCoreInterceptors.tektonTriggersCoreInterceptors.args
+          | nindent 8 }}
+        env:
+        - name: SYSTEM_NAMESPACE
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.namespace
+        - name: CONFIG_LOGGING_NAME
+          value: {{ quote .Values.tektonTriggersCoreInterceptors.tektonTriggersCoreInterceptors.env.configLoggingName
+            }}
+        - name: CONFIG_OBSERVABILITY_NAME
+          value: {{ quote .Values.tektonTriggersCoreInterceptors.tektonTriggersCoreInterceptors.env.configObservabilityName
+            }}
+        - name: METRICS_DOMAIN
+          value: {{ quote .Values.tektonTriggersCoreInterceptors.tektonTriggersCoreInterceptors.env.metricsDomain
+            }}
+        - name: INTERCEPTOR_TLS_SVC_NAME
+          value: {{ quote .Values.tektonTriggersCoreInterceptors.tektonTriggersCoreInterceptors.env.interceptorTlsSvcName
+            }}
+        - name: INTERCEPTOR_TLS_SECRET_NAME
+          value: {{ quote .Values.tektonTriggersCoreInterceptors.tektonTriggersCoreInterceptors.env.interceptorTlsSecretName
+            }}
+        - name: KUBERNETES_CLUSTER_DOMAIN
+          value: {{ quote .Values.kubernetesClusterDomain }}
+        image: {{ .Values.tektonTriggersCoreInterceptors.tektonTriggersCoreInterceptors.image.repository
+          }}:{{ .Values.tektonTriggersCoreInterceptors.tektonTriggersCoreInterceptors.image.tag
+          | default .Chart.AppVersion }}
+        name: tekton-triggers-core-interceptors
+        ports:
+        - containerPort: 8443
+        readinessProbe:
+          httpGet:
+            path: /ready
+            port: 8443
+            scheme: HTTPS
+          initialDelaySeconds: 5
+          periodSeconds: 10
+          timeoutSeconds: 5
+        resources: {}
+        securityContext: {{- toYaml .Values.tektonTriggersCoreInterceptors.tektonTriggersCoreInterceptors.containerSecurityContext
+          | nindent 10 }}
+      {{- with .Values.serviceAccountName }}
+      serviceAccountName: {{ . }}
+      {{- end }}

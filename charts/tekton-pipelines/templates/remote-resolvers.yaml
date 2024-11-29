@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ include "tekton-pipelines.fullname" . }}-remote-resolvers
+  name: tekton-pipelines-remote-resolvers
   labels:
     app: tekton-pipelines-remote-resolvers
     app.kubernetes.io/component: resolvers
