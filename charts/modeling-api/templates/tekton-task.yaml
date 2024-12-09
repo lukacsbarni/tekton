@@ -35,6 +35,10 @@ spec:
     script: |
       #!/bin/sh
       apk add jq
+      echo "cat docker config"
+      cat /workspace/helm-secrets/.dockerconfigjson
+      echo "list password"
+      cat /workspace/helm-secrets/.dockerconfigjson | jq -r '.auths["ghcr.io"].password'
       echo "Logging into OCI registry..."
       echo $(cat /workspace/helm-secrets/.dockerconfigjson | jq -r '.auths["ghcr.io"].password') | helm registry login $(params.registry_url) --username USERNAME --password-stdin
       echo "Linting Helm chart..."
