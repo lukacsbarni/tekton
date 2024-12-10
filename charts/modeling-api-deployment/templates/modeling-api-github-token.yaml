@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: modeling-api-github-token
+  labels:
+  {{- include "modeling-api-deployment.labels" . | nindent 4 }}
+data:
+  githubtoken: {{ required "modelingApiGithubToken.githubtoken is required" .Values.modelingApiGithubToken.githubtoken
+    | b64enc | quote }}
+type: Opaque

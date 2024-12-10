@@ -1,0 +1,14 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: tekton-clusterrolebinding
+  labels:
+  {{- include "modeling-api-deployment.labels" . | nindent 4 }}
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: tekton-clusterrole
+subjects:
+- kind: ServiceAccount
+  name: tekton-sa
+  namespace: '{{ .Release.Namespace }}'

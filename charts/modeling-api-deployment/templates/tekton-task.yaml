@@ -1,0 +1,66 @@
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: tekton-task
+  labels:
+  {{- include "modeling-api-deployment.labels" . | nindent 4 }}
+spec:
+  params:
+  - name: registry_url
+    type: string
+  - name: chart_name
+    type: string
+  - name: chart_version
+    type: string
+  - name: namespace
+    type: string
+  steps:
+  - image: bitnami/kubectl:latest
+    name: kubectl
+    script: |
+      #!/bin/sh
+      echo "Kubectl list objects."
+      kubectl get all
+      ls -alh /workspace/helm-values
+      ls -alh /workspace/helm-secrets
+      cat /workspace/helm-values/config.yaml
+      cat /workspace/helm-secrets/githubtoken
+    volumeMounts:
+    - mountPath: /workspace/helm-values
+      name: helm-values-volume
+    - mountPath: /workspace/helm-secrets
+      name: helm-credentials
+  - image: alpine/helm:3.12.3
+    name: lint-chart
+    script: |
+      #!/bin/sh
+      echo "Logging into OCI registry..."
+      echo $(cat /workspace/helm-secrets/githubtoken) | helm registry login $(params.registry_url) --username USERNAME --password-stdin
+      echo "Linting Helm chart..."
+      helm pull oci://$(params.registry_url)/$(params.chart_name) --version $(params.chart_version)
+      tar -xvzf $(params.chart_name)-$(params.chart_version).tgz
+      helm lint ./$(params.chart_name)
+    volumeMounts:
+    - mountPath: /workspace/helm-secrets
+      name: helm-credentials
+  - image: alpine/helm:3.12.3
+    name: deploy-chart
+    script: |
+      #!/bin/sh
+      echo "Logging into OCI registry..."
+      echo $(cat /workspace/helm-secrets/githubtoken) | helm registry login $(params.registry_url) --username USERNAME --password-stdin
+      echo "Deploying Helm chart..."
+      helm upgrade --install $(params.chart_name) oci://$(params.registry_url)/$(params.chart_name) \
+        --version $(params.chart_version) --namespace $(params.namespace) --values /workspace/helm-values/config.yaml
+    volumeMounts:
+    - mountPath: /workspace/helm-values
+      name: helm-values-volume
+    - mountPath: /workspace/helm-secrets
+      name: helm-credentials
+  volumes:
+  - name: helm-credentials
+    secret:
+      secretName: modeling-api-github-token
+  - configMap:
+      name: modeling-api-config
+    name: helm-values-volume

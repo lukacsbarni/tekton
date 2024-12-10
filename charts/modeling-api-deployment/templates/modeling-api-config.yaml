@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: modeling-api-config
+  labels:
+  {{- include "modeling-api-deployment.labels" . | nindent 4 }}
+data:
+  config.yaml: {{ .Values.modelingApiConfig.configYaml | toYaml | indent 1 }}

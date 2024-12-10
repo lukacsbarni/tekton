@@ -1,0 +1,30 @@
+apiVersion: tekton.dev/v1beta1
+kind: Pipeline
+metadata:
+  name: modeling-api-pipeline
+  labels:
+  {{- include "modeling-api-deployment.labels" . | nindent 4 }}
+spec:
+  params:
+  - name: registry_url
+    type: string
+  - name: chart_name
+    type: string
+  - name: chart_version
+    type: string
+  - description: Namespace where the chart will be deployed
+    name: namespace
+    type: string
+  tasks:
+  - name: tekton-task
+    params:
+    - name: registry_url
+      value: $(params.registry_url)
+    - name: chart_name
+      value: $(params.chart_name)
+    - name: chart_version
+      value: $(params.chart_version)
+    - name: namespace
+      value: $(params.namespace)
+    taskRef:
+      name: tekton-task
