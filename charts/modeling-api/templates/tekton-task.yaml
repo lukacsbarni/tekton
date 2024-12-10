@@ -24,7 +24,7 @@ spec:
       ls -alh /workspace/helm-values
       ls -alh /workspace/helm-secrets
       cat /workspace/helm-values/config.yaml
-      cat /workspace/helm-secrets/.dockerconfigjson
+      cat /workspace/helm-secrets/githubtoken
     volumeMounts:
     - mountPath: /workspace/helm-values
       name: helm-values-volume
@@ -34,12 +34,9 @@ spec:
     name: lint-chart
     script: |
       #!/bin/sh
-      apk add jq
-      echo "Test network..."
-      ping google.com -c 1
-      echo $(cat /workspace/helm-secrets/.dockerconfigjson | jq -r '.auths["ghcr.io"].password')
       echo "Logging into OCI registry..."
-      echo $(cat /workspace/helm-secrets/.dockerconfigjson | jq -r '.auths["ghcr.io"].password') | helm registry login $(params.registry_url) --username USERNAME --password-stdin
+      echo $(cat /workspace/helm-secrets/githubtoken)
+      echo $(cat /workspace/helm-secrets/githubtoken) | helm registry login ghcr.io --username USERNAME --password-stdin
       echo "Linting Helm chart..."
       helm pull oci://$(params.registry_url)/$(params.chart_name) --version $(params.chart_version)
       tar -xvzf $(params.chart_name)-$(params.chart_version).tgz
@@ -65,7 +62,7 @@ spec:
   volumes:
   - name: helm-credentials
     secret:
-      secretName: modeling-api-docker-secret
+      secretName: docker-secret-blukacs
   - configMap:
       name: modeling-api-config
     name: helm-values-volume
