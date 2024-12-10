@@ -4,7 +4,7 @@ metadata:
   name: modeling-api-ingress
   labels:
     owner: csm-platform
-  {{- include "modeling-api.labels" . | nindent 4 }}
+  {{- include "modeling-api-deployment.labels" . | nindent 4 }}
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt-prod
     email: platform@cosmotech.com

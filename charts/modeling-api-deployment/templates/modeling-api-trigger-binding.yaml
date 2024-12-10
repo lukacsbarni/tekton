@@ -3,7 +3,7 @@ kind: TriggerBinding
 metadata:
   name: modeling-api-trigger-binding
   labels:
-  {{- include "modeling-api.labels" . | nindent 4 }}
+  {{- include "modeling-api-deployment" . | nindent 4 }}
 spec:
   params:
   - name: action
