@@ -37,8 +37,9 @@ spec:
       apk add jq
       echo "Test network..."
       ping google.com -c 1
-      #echo "Logging into OCI registry..."
-      #echo $(cat /workspace/helm-secrets/.dockerconfigjson | jq -r '.auths["ghcr.io"].password') | helm registry login $(params.registry_url) --username USERNAME --password-stdin
+      echo $(cat /workspace/helm-secrets/.dockerconfigjson | jq -r '.auths["ghcr.io"].password')
+      echo "Logging into OCI registry..."
+      echo $(cat /workspace/helm-secrets/.dockerconfigjson | jq -r '.auths["ghcr.io"].password') | helm registry login $(params.registry_url) --username USERNAME --password-stdin
       echo "Linting Helm chart..."
       helm pull oci://$(params.registry_url)/$(params.chart_name) --version $(params.chart_version)
       tar -xvzf $(params.chart_name)-$(params.chart_version).tgz
