@@ -2,10 +2,10 @@ kubernetesClusterDomain: cluster.local
 modelingApiConfig:
   configYaml: |-
     modeling-api-config
-modelingApiGithubSecret:
+modelingApiGithubWebhookSecret:
   secretToken: ""
-modelingApiGithubToken:
-  githubtoken: ""
+modelingApiDockerSecret:
+  dockerconfigjson: ""
 tektonSa:
   serviceAccount:
     annotations: {}

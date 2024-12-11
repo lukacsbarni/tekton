@@ -21,7 +21,7 @@ spec:
       - name: secretRef
         value:
           secretKey: secretToken
-          secretName: modeling-api-github-secret
+          secretName: modeling-api-webhook-secret
       - name: eventTypes
         value:
         - registry_package

@@ -24,7 +24,7 @@ spec:
       ls -alh /workspace/helm-values
       ls -alh /workspace/helm-secrets
       cat /workspace/helm-values/config.yaml
-      cat /workspace/helm-secrets/githubtoken
+      cat /workspace/helm-secrets/.dockerconfigjson
     volumeMounts:
     - mountPath: /workspace/helm-values
       name: helm-values-volume
@@ -34,10 +34,8 @@ spec:
     name: lint-chart
     script: |
       #!/bin/sh
-      echo "Logging into OCI registry..."
-      echo $(cat /workspace/helm-secrets/githubtoken) | helm registry login $(params.registry_url) --username USERNAME --password-stdin
       echo "Linting Helm chart..."
-      helm pull oci://$(params.registry_url)/$(params.chart_name) --version $(params.chart_version)
+      helm pull --registry-config /workspace/helm-secrets/.dockerconfigjson oci://$(params.registry_url)/$(params.chart_name) --version $(params.chart_version)
       tar -xvzf $(params.chart_name)-$(params.chart_version).tgz
       helm lint ./$(params.chart_name)
     volumeMounts:
@@ -47,10 +45,8 @@ spec:
     name: deploy-chart
     script: |
       #!/bin/sh
-      echo "Logging into OCI registry..."
-      echo $(cat /workspace/helm-secrets/githubtoken) | helm registry login $(params.registry_url) --username USERNAME --password-stdin
       echo "Deploying Helm chart..."
-      helm upgrade --install $(params.chart_name) oci://$(params.registry_url)/$(params.chart_name) \
+      helm upgrade --registry-config  --registry-config --install $(params.chart_name) oci://$(params.registry_url)/$(params.chart_name) \
         --version $(params.chart_version) --namespace $(params.namespace) --values /workspace/helm-values/config.yaml
     volumeMounts:
     - mountPath: /workspace/helm-values
@@ -60,7 +56,7 @@ spec:
   volumes:
   - name: helm-credentials
     secret:
-      secretName: modeling-api-github-token
+      secretName: modeling-api-docker-secret
   - configMap:
       name: modeling-api-config
     name: helm-values-volume

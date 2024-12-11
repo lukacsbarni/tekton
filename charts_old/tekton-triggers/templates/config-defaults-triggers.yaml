@@ -1,9 +1,0 @@
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: config-defaults-triggers
-  labels:
-    app.kubernetes.io/part-of: tekton-triggers
-  {{- include "tekton-triggers.labels" . | nindent 4 }}
-data:
-  _example: {{ .Values.configDefaultsTriggers.Example | toYaml | indent 1 }}
