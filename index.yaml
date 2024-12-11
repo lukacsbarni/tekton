@@ -54,6 +54,16 @@ entries:
   modeling-api-deployment:
   - apiVersion: v2
     appVersion: 0.1.0
+    created: "2024-12-11T12:54:50.737652346Z"
+    description: A Helm chart for Modeling API deploymen with Tekton
+    digest: fe790da324284ef793a8bdc3ce4c04bc050ed9cde02d381c8a95adacfda5c0f0
+    name: modeling-api-deployment
+    type: application
+    urls:
+    - https://github.com/lukacsbarni/tekton/releases/download/modeling-api-deployment-0.1.9/modeling-api-deployment-0.1.9.tgz
+    version: 0.1.9
+  - apiVersion: v2
+    appVersion: 0.1.0
     created: "2024-12-11T12:43:23.783697105Z"
     description: A Helm chart for Modeling API deploymen with Tekton
     digest: 2351a6f43965b0c2ac3f2cd7125f74428e4ca9b7acded521f68eb6618a2a7a8f
@@ -336,4 +346,4 @@ entries:
     urls:
     - https://github.com/lukacsbarni/tekton/releases/download/tekton-triggers-0.1.5/tekton-triggers-0.1.5.tgz
     version: 0.1.5
-generated: "2024-12-11T12:43:23.783778578Z"
+generated: "2024-12-11T12:54:50.737729152Z"
