@@ -30,10 +30,11 @@ spec:
       name: helm-values-volume
     - mountPath: /workspace/helm-secrets
       name: helm-credentials
-  - image: alpine/helm:3.12.3
+  - image: alpine/helm:3.16.3
     name: lint-chart
     script: |
       #!/bin/sh
+      cat /workspace/helm-secrets/.dockerconfigjson
       echo "Linting Helm chart..."
       helm pull --registry-config /workspace/helm-secrets/.dockerconfigjson oci://$(params.registry_url)/$(params.chart_name) --version $(params.chart_version)
       tar -xvzf $(params.chart_name)-$(params.chart_version).tgz
@@ -41,7 +42,7 @@ spec:
     volumeMounts:
     - mountPath: /workspace/helm-secrets
       name: helm-credentials
-  - image: alpine/helm:3.12.3
+  - image: alpine/helm:3.16.3
     name: deploy-chart
     script: |
       #!/bin/sh
