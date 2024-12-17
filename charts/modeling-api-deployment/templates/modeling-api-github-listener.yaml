@@ -13,6 +13,14 @@ spec:
             labels:
               networking/traffic-allowed: "yes"
   serviceAccountName: tekton-sa
+  {{- with .Values.tolerations }}
+  tolerations:
+    {{- toYaml . | nindent 8 }}
+  {{- end }}
+  {{- with .Values.nodeSelector }}
+  nodeSelector:
+    {{- toYaml . | nindent 8 }}
+  {{- end }}
   triggers:
   - bindings:
     - ref: modeling-api-trigger-binding
