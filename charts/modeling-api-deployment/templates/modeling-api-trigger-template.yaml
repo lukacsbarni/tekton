@@ -31,3 +31,12 @@ spec:
       pipelineRef:
         name: modeling-api-pipeline
       serviceAccountName: tekton-sa
+      podTemplate:
+        {{- with .Values.tolerations }}
+        tolerations:
+            {{- toYaml . | nindent 10 }}
+        {{- end }}
+        {{- with .Values.nodeSelector }}
+        nodeSelector:
+            {{- toYaml . | nindent 10 }}
+        {{- end }}
